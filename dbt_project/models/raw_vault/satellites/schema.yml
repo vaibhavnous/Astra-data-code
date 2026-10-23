@@ -1,0 +1,330 @@
+version: 2
+models:
+- name: SAT_ADDRESS
+  description: Stores address-related information for each employee linked to HUB_EMPLOYEE. Source data
+    comes from BRONZE.ADDRESS; one historical descriptive version is retained for every HUB_HK and LDTS.
+  config:
+    materialized: incremental
+    alias: SAT_ADDRESS
+    unique_key:
+    - HUB_HK
+    - LDTS
+    incremental_strategy: append
+    on_schema_change: fail
+    table_format: iceberg
+    catalog: SNOWFLAKE
+    external_volume: SNOWFLAKE_MANAGED
+    tags:
+    - yaml_phase_2
+    - data_vault_satellite
+    contract:
+      enforced: true
+  columns:
+  - name: HUB_HK
+    description: Deterministic SHA-256 Hub hash key derived from ENO; identifies one durable business
+      entity and is referenced by Links and Satellites.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+    - relationships:
+        to: '{{ ref(''HUB_EMPLOYEE'') }}'
+        field: HUB_HK
+  - name: HASHDIFF
+    description: Deterministic SHA-256 hash of the Satellite payload columns; used to detect descriptive
+      changes for the same governed Hub or Link parent.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+  - name: ADDRESS_LINE
+    description: Street and building information of the employee.
+    data_type: VARCHAR(134217728)
+    quote: false
+  - name: CITY
+    description: City where the employee resides.
+    data_type: VARCHAR(134217728)
+    quote: false
+  - name: STATE_PROVINCE
+    description: State or province where the employee resides.
+    data_type: VARCHAR(134217728)
+    quote: false
+  - name: COUNTRY
+    description: Country where the employee resides.
+    data_type: VARCHAR(134217728)
+    quote: false
+  - name: LDTS
+    description: Technical load timestamp for the Bronze record, used to order incremental loads and preserve
+      Data Vault history.
+    data_type: TIMESTAMP_NTZ
+    quote: false
+    data_tests:
+    - not_null
+  - name: RSRC
+    description: Record-source identifier naming the approved Bronze relation from which the Data Vault
+      row was derived.
+    data_type: VARCHAR
+    quote: false
+  data_tests:
+  - astra_unique_combination_of_columns:
+      combination_of_columns:
+      - HUB_HK
+      - LDTS
+- name: SAT_DEPARTMENT
+  description: Stores department-related information for each department linked to HUB_DEPARTMENT. Source
+    data comes from BRONZE.DEPARTMENT; one historical descriptive version is retained for every HUB_HK
+    and LDTS.
+  config:
+    materialized: incremental
+    alias: SAT_DEPARTMENT
+    unique_key:
+    - HUB_HK
+    - LDTS
+    incremental_strategy: append
+    on_schema_change: fail
+    table_format: iceberg
+    catalog: SNOWFLAKE
+    external_volume: SNOWFLAKE_MANAGED
+    tags:
+    - yaml_phase_2
+    - data_vault_satellite
+    contract:
+      enforced: true
+  columns:
+  - name: HUB_HK
+    description: Deterministic SHA-256 Hub hash key derived from DEPARTMENT_ID; identifies one durable
+      business entity and is referenced by Links and Satellites.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+    - relationships:
+        to: '{{ ref(''HUB_DEPARTMENT'') }}'
+        field: HUB_HK
+  - name: HASHDIFF
+    description: Deterministic SHA-256 hash of the Satellite payload columns; used to detect descriptive
+      changes for the same governed Hub or Link parent.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+  - name: DEPARTMENT_NAME
+    description: Name of the department assigned to the employee.
+    data_type: VARCHAR(134217728)
+    quote: false
+  - name: LOCATION
+    description: Business location of the department.
+    data_type: VARCHAR(134217728)
+    quote: false
+  - name: LDTS
+    description: Technical load timestamp for the Bronze record, used to order incremental loads and preserve
+      Data Vault history.
+    data_type: TIMESTAMP_NTZ
+    quote: false
+    data_tests:
+    - not_null
+  - name: RSRC
+    description: Record-source identifier naming the approved Bronze relation from which the Data Vault
+      row was derived.
+    data_type: VARCHAR
+    quote: false
+  data_tests:
+  - astra_unique_combination_of_columns:
+      combination_of_columns:
+      - HUB_HK
+      - LDTS
+- name: SAT_EMPLOYEE
+  description: Stores employee-related information for each employee linked to HUB_EMPLOYEE. Source data
+    comes from BRONZE.EMPLOYEE; one historical descriptive version is retained for every HUB_HK and LDTS.
+  config:
+    materialized: incremental
+    alias: SAT_EMPLOYEE
+    unique_key:
+    - HUB_HK
+    - LDTS
+    incremental_strategy: append
+    on_schema_change: fail
+    table_format: iceberg
+    catalog: SNOWFLAKE
+    external_volume: SNOWFLAKE_MANAGED
+    tags:
+    - yaml_phase_2
+    - data_vault_satellite
+    contract:
+      enforced: true
+  columns:
+  - name: HUB_HK
+    description: Deterministic SHA-256 Hub hash key derived from ENO; identifies one durable business
+      entity and is referenced by Links and Satellites.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+    - relationships:
+        to: '{{ ref(''HUB_EMPLOYEE'') }}'
+        field: HUB_HK
+  - name: HASHDIFF
+    description: Deterministic SHA-256 hash of the Satellite payload columns; used to detect descriptive
+      changes for the same governed Hub or Link parent.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+  - name: ENAME
+    description: Full name of the employee.
+    data_type: VARCHAR(134217728)
+    quote: false
+  - name: EMAIL
+    description: Official email address of the employee.
+    data_type: VARCHAR(134217728)
+    quote: false
+  - name: JOIN_DATE
+    description: Date on which the employee joined the organization.
+    data_type: DATE
+    quote: false
+  - name: LDTS
+    description: Technical load timestamp for the Bronze record, used to order incremental loads and preserve
+      Data Vault history.
+    data_type: TIMESTAMP_NTZ
+    quote: false
+    data_tests:
+    - not_null
+  - name: RSRC
+    description: Record-source identifier naming the approved Bronze relation from which the Data Vault
+      row was derived.
+    data_type: VARCHAR
+    quote: false
+  data_tests:
+  - astra_unique_combination_of_columns:
+      combination_of_columns:
+      - HUB_HK
+      - LDTS
+- name: SAT_PROJECT
+  description: Stores project-related information for each project linked to HUB_PROJECT. Source data
+    comes from BRONZE.EMPLOYEE_PROJECT; one historical descriptive version is retained for every HUB_HK
+    and LDTS.
+  config:
+    materialized: incremental
+    alias: SAT_PROJECT
+    unique_key:
+    - HUB_HK
+    - LDTS
+    incremental_strategy: append
+    on_schema_change: fail
+    table_format: iceberg
+    catalog: SNOWFLAKE
+    external_volume: SNOWFLAKE_MANAGED
+    tags:
+    - yaml_phase_2
+    - data_vault_satellite
+    contract:
+      enforced: true
+  columns:
+  - name: HUB_HK
+    description: Deterministic SHA-256 Hub hash key derived from PROJECT_ID; identifies one durable business
+      entity and is referenced by Links and Satellites.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+    - relationships:
+        to: '{{ ref(''HUB_PROJECT'') }}'
+        field: HUB_HK
+  - name: HASHDIFF
+    description: Deterministic SHA-256 hash of the Satellite payload columns; used to detect descriptive
+      changes for the same governed Hub or Link parent.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+  - name: PROJECT_NAME
+    description: Name of the project assigned to the employee.
+    data_type: VARCHAR(134217728)
+    quote: false
+  - name: LDTS
+    description: Technical load timestamp for the Bronze record, used to order incremental loads and preserve
+      Data Vault history.
+    data_type: TIMESTAMP_NTZ
+    quote: false
+    data_tests:
+    - not_null
+  - name: RSRC
+    description: Record-source identifier naming the approved Bronze relation from which the Data Vault
+      row was derived.
+    data_type: VARCHAR
+    quote: false
+  data_tests:
+  - astra_unique_combination_of_columns:
+      combination_of_columns:
+      - HUB_HK
+      - LDTS
+- name: SAT_SALARY
+  description: Stores salary-related information for each employee linked to HUB_EMPLOYEE. Source data
+    comes from BRONZE.SALARY; one historical descriptive version is retained for every HUB_HK and LDTS.
+  config:
+    materialized: incremental
+    alias: SAT_SALARY
+    unique_key:
+    - HUB_HK
+    - LDTS
+    incremental_strategy: append
+    on_schema_change: fail
+    table_format: iceberg
+    catalog: SNOWFLAKE
+    external_volume: SNOWFLAKE_MANAGED
+    tags:
+    - yaml_phase_2
+    - data_vault_satellite
+    contract:
+      enforced: true
+  columns:
+  - name: HUB_HK
+    description: Deterministic SHA-256 Hub hash key derived from ENO; identifies one durable business
+      entity and is referenced by Links and Satellites.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+    - relationships:
+        to: '{{ ref(''HUB_EMPLOYEE'') }}'
+        field: HUB_HK
+  - name: HASHDIFF
+    description: Deterministic SHA-256 hash of the Satellite payload columns; used to detect descriptive
+      changes for the same governed Hub or Link parent.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+  - name: BASIC_SALARY
+    description: Basic salary amount of the employee.
+    data_type: NUMBER(18,2)
+    quote: false
+  - name: BONUS
+    description: Bonus amount assigned to the employee.
+    data_type: NUMBER(18,2)
+    quote: false
+  - name: CURRENCY
+    description: Currency code used for salary payment.
+    data_type: VARCHAR(134217728)
+    quote: false
+  - name: EFFECTIVE_DATE
+    description: Date from which the salary information is effective.
+    data_type: DATE
+    quote: false
+  - name: LDTS
+    description: Technical load timestamp for the Bronze record, used to order incremental loads and preserve
+      Data Vault history.
+    data_type: TIMESTAMP_NTZ
+    quote: false
+    data_tests:
+    - not_null
+  - name: RSRC
+    description: Record-source identifier naming the approved Bronze relation from which the Data Vault
+      row was derived.
+    data_type: VARCHAR
+    quote: false
+  data_tests:
+  - astra_unique_combination_of_columns:
+      combination_of_columns:
+      - HUB_HK
+      - LDTS
