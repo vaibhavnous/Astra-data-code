@@ -1,6 +1,7 @@
 SELECT
     base_dim."ENO" AS "ENO",
     base_dim."ENAME" AS "ENAME",
+    base_dim."EMAIL" AS "EMAIL",
     base_dim."CITY" AS "CITY",
     base_dim."COUNTRY" AS "COUNTRY",
     dimension_1."DEPARTMENT_NAME" AS "DEPARTMENT_NAME",

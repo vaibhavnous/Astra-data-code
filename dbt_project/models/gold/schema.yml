@@ -347,6 +347,8 @@ models:
     - unique
   - name: ENAME
     description: Generated Gold column ENAME.
+  - name: EMAIL
+    description: Generated Gold column EMAIL.
   - name: CITY
     description: Generated Gold column CITY.
   - name: COUNTRY
@@ -400,6 +402,8 @@ models:
     - unique
   - name: ENAME
     description: Generated Gold column ENAME.
+  - name: EMAIL
+    description: Generated Gold column EMAIL.
   - name: CITY
     description: Generated Gold column CITY.
   - name: COUNTRY

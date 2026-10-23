@@ -1,6 +1,7 @@
 SELECT
     "ENO",
     "ENAME",
+    "EMAIL",
     "CITY",
     "COUNTRY",
     "DEPARTMENT_NAME",
