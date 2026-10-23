@@ -1,0 +1,22 @@
+WITH
+anchor AS (SELECT * FROM {{ ref('LINK_EMPLOYEE_PROJECT') }}),
+sat_1 AS (
+    SELECT * FROM {{ ref('SAT_LINK_EMPLOYEE_PROJECT') }}
+    QUALIFY ROW_NUMBER() OVER (
+        PARTITION BY "LINK_HK" ORDER BY "LDTS" DESC, "HASHDIFF" DESC
+    ) = 1
+)
+SELECT
+    anchor."LINK_HK" AS "LINK_HK",
+    anchor."PROJECT_HUB_HK" AS "PROJECT_HUB_HK",
+    anchor."EMPLOYEE_HUB_HK" AS "EMPLOYEE_HUB_HK",
+    anchor."LDTS" AS "LDTS",
+    anchor."RSRC" AS "RSRC",
+    sat_1."PROJECT_ROLE" AS "PROJECT_ROLE",
+    sat_1."START_DATE" AS "START_DATE",
+    CAST('ASTRA_DATA' AS VARCHAR) AS "created_by",
+    CAST('ASTRA_DATA' AS VARCHAR) AS "modified_by",
+    CURRENT_TIMESTAMP()::TIMESTAMP_NTZ AS "created_date",
+    CURRENT_TIMESTAMP()::TIMESTAMP_NTZ AS "modified_date"
+FROM anchor
+LEFT JOIN sat_1 ON anchor."LINK_HK" = sat_1."LINK_HK"
