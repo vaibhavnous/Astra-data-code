@@ -1,13 +1,14 @@
 version: 2
 models:
 - name: DIM_DEPARTMENT
-  description: Gold dimension generated from HUB_DEPARTMENT and its approved Silver satellites; business
-    grain is HUB_HK with SCD Type 2 history.
+  description: Gold dimension generated from HUB_DEPARTMENT and its approved Silver
+    satellites; business grain is HUB_HK with SCD Type 2 history.
   config:
     materialized: incremental
     database: '{{ env_var(''DBT_SNOWFLAKE_GOLD_DATABASE'', env_var(''DBT_SNOWFLAKE_SILVER_DATABASE''))
       }}'
-    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA'')) }}'
+    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA''))
+      }}'
     tags:
     - gold
     - approved
@@ -18,7 +19,8 @@ models:
   meta:
     astra_generation_status: APPROVED
     astra_confidence_score: 1.0
-    astra_confidence_reason: The approved Silver design is the governed source for this Gold model.
+    astra_confidence_reason: The approved Silver design is the governed source for
+      this Gold model.
     astra_load_strategy: INCREMENTAL_MERGE
     astra_history_strategy: SCD2
     astra_business_grain:
@@ -66,13 +68,14 @@ models:
   - name: modified_date
     description: Generated Gold column modified_date.
 - name: DIM_EMPLOYEE
-  description: Gold dimension generated from HUB_EMPLOYEE and its approved Silver satellites; business
-    grain is HUB_HK with SCD Type 2 history.
+  description: Gold dimension generated from HUB_EMPLOYEE and its approved Silver
+    satellites; business grain is HUB_HK with SCD Type 2 history.
   config:
     materialized: incremental
     database: '{{ env_var(''DBT_SNOWFLAKE_GOLD_DATABASE'', env_var(''DBT_SNOWFLAKE_SILVER_DATABASE''))
       }}'
-    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA'')) }}'
+    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA''))
+      }}'
     tags:
     - gold
     - approved
@@ -83,7 +86,8 @@ models:
   meta:
     astra_generation_status: APPROVED
     astra_confidence_score: 1.0
-    astra_confidence_reason: The approved Silver design is the governed source for this Gold model.
+    astra_confidence_reason: The approved Silver design is the governed source for
+      this Gold model.
     astra_load_strategy: INCREMENTAL_MERGE
     astra_history_strategy: SCD2
     astra_business_grain:
@@ -149,13 +153,14 @@ models:
   - name: modified_date
     description: Generated Gold column modified_date.
 - name: DIM_PROJECT
-  description: Gold dimension generated from HUB_PROJECT and its approved Silver satellites; business
-    grain is HUB_HK with SCD Type 2 history.
+  description: Gold dimension generated from HUB_PROJECT and its approved Silver satellites;
+    business grain is HUB_HK with SCD Type 2 history.
   config:
     materialized: incremental
     database: '{{ env_var(''DBT_SNOWFLAKE_GOLD_DATABASE'', env_var(''DBT_SNOWFLAKE_SILVER_DATABASE''))
       }}'
-    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA'')) }}'
+    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA''))
+      }}'
     tags:
     - gold
     - approved
@@ -166,7 +171,8 @@ models:
   meta:
     astra_generation_status: APPROVED
     astra_confidence_score: 1.0
-    astra_confidence_reason: The approved Silver design is the governed source for this Gold model.
+    astra_confidence_reason: The approved Silver design is the governed source for
+      this Gold model.
     astra_load_strategy: INCREMENTAL_MERGE
     astra_history_strategy: SCD2
     astra_business_grain:
@@ -212,20 +218,22 @@ models:
   - name: modified_date
     description: Generated Gold column modified_date.
 - name: FACT_EMPLOYEE_DEPARTMENT
-  description: Gold fact generated from LINK_EMPLOYEE_DEPARTMENT and its approved Silver satellites; business
-    grain is LINK_HK.
+  description: Gold fact generated from LINK_EMPLOYEE_DEPARTMENT and its approved
+    Silver satellites; business grain is LINK_HK.
   config:
     materialized: view
     database: '{{ env_var(''DBT_SNOWFLAKE_GOLD_DATABASE'', env_var(''DBT_SNOWFLAKE_SILVER_DATABASE''))
       }}'
-    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA'')) }}'
+    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA''))
+      }}'
     tags:
     - gold
     - approved
   meta:
     astra_generation_status: APPROVED
     astra_confidence_score: 1.0
-    astra_confidence_reason: The approved Silver design is the governed source for this Gold model.
+    astra_confidence_reason: The approved Silver design is the governed source for
+      this Gold model.
     astra_load_strategy: VIEW
     astra_history_strategy: NONE
     astra_business_grain:
@@ -265,20 +273,22 @@ models:
   - name: modified_date
     description: Generated Gold column modified_date.
 - name: FACT_EMPLOYEE_PROJECT
-  description: Gold fact generated from LINK_EMPLOYEE_PROJECT and its approved Silver satellites; business
-    grain is LINK_HK.
+  description: Gold fact generated from LINK_EMPLOYEE_PROJECT and its approved Silver
+    satellites; business grain is LINK_HK.
   config:
     materialized: view
     database: '{{ env_var(''DBT_SNOWFLAKE_GOLD_DATABASE'', env_var(''DBT_SNOWFLAKE_SILVER_DATABASE''))
       }}'
-    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA'')) }}'
+    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA''))
+      }}'
     tags:
     - gold
     - approved
   meta:
     astra_generation_status: APPROVED
     astra_confidence_score: 1.0
-    astra_confidence_reason: The approved Silver design is the governed source for this Gold model.
+    astra_confidence_reason: The approved Silver design is the governed source for
+      this Gold model.
     astra_load_strategy: VIEW
     astra_history_strategy: NONE
     astra_business_grain:
@@ -320,21 +330,22 @@ models:
   - name: modified_date
     description: Generated Gold column modified_date.
 - name: FACT_EMPREPORT
-  description: Report-driven Gold fact for EmpReport; grain is one row per ENO using the approved report
-    field mappings.
+  description: Report-driven Gold fact for EmpReport; grain is one row per ENO using
+    the approved report field mappings.
   config:
     materialized: view
     database: '{{ env_var(''DBT_SNOWFLAKE_GOLD_DATABASE'', env_var(''DBT_SNOWFLAKE_SILVER_DATABASE''))
       }}'
-    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA'')) }}'
+    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA''))
+      }}'
     tags:
     - gold
     - approved
   meta:
     astra_generation_status: APPROVED
     astra_confidence_score: 1.0
-    astra_confidence_reason: The approved report grain and field mappings are backed by the governed Silver
-      design.
+    astra_confidence_reason: The approved report grain and field mappings are backed
+      by the governed Silver design.
     astra_load_strategy: VIEW
     astra_history_strategy: NONE
     astra_business_grain:
@@ -372,13 +383,14 @@ models:
   - name: modified_date
     description: Generated Gold column modified_date.
 - name: VW_EMPREPORT
-  description: Gold report view for EmpReport; exposes the report YAML fields from the governed Gold fact
-    FACT_EMPREPORT.
+  description: Gold report view for EmpReport; exposes the report YAML fields from
+    the governed Gold fact FACT_EMPREPORT.
   config:
     materialized: view
     database: '{{ env_var(''DBT_SNOWFLAKE_GOLD_DATABASE'', env_var(''DBT_SNOWFLAKE_SILVER_DATABASE''))
       }}'
-    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA'')) }}'
+    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA''))
+      }}'
     tags:
     - gold
     - approved
@@ -386,8 +398,8 @@ models:
   meta:
     astra_generation_status: APPROVED
     astra_confidence_score: 1.0
-    astra_confidence_reason: The approved report grain and field mappings are backed by the governed Silver
-      design.
+    astra_confidence_reason: The approved report grain and field mappings are backed
+      by the governed Silver design.
     astra_load_strategy: VIEW
     astra_history_strategy: NONE
     astra_business_grain:
@@ -416,3 +428,94 @@ models:
     description: Generated Gold column PROJECT_NAME.
   - name: PROJECT_ROLE
     description: Generated Gold column PROJECT_ROLE.
+# Astra Gold change: ADDITION FACT_EMPLOYEEASSIGNMENTREPORT against referenced branch.
+# Rationale: The current Gold design produces a model absent from the referenced branch.
+# Evidence: Silver model DIM_EMPLOYEE; Silver model FACT_EMPLOYEE_DEPARTMENT; Silver model DIM_DEPARTMENT
+# Details: metadata/astra_gold_column_change_rationale.md
+- name: FACT_EMPLOYEEASSIGNMENTREPORT
+  description: Report-driven Gold fact for EmployeeAssignmentReport; grain is one
+    row per ENO using the approved report field mappings.
+  config:
+    materialized: view
+    database: '{{ env_var(''DBT_SNOWFLAKE_GOLD_DATABASE'', env_var(''DBT_SNOWFLAKE_SILVER_DATABASE''))
+      }}'
+    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA''))
+      }}'
+    tags:
+    - gold
+    - approved
+  meta:
+    astra_generation_status: APPROVED
+    astra_confidence_score: 1.0
+    astra_confidence_reason: The approved report grain and field mappings are backed
+      by the governed Silver design.
+    astra_load_strategy: VIEW
+    astra_history_strategy: NONE
+    astra_business_grain:
+    - ENO
+  columns:
+  - name: ENO
+    description: Generated Gold column ENO.
+    tests:
+    - not_null
+    - unique
+  - name: ENAME
+    description: Generated Gold column ENAME.
+  - name: EMAIL
+    description: Generated Gold column EMAIL.
+  - name: JOINDATE
+    description: Generated Gold column JOINDATE.
+  - name: DEPARTMENT_ID
+    description: Generated Gold column DEPARTMENT_ID.
+  - name: LOCATION
+    description: Generated Gold column LOCATION.
+  - name: created_by
+    description: Generated Gold column created_by.
+  - name: modified_by
+    description: Generated Gold column modified_by.
+  - name: created_date
+    description: Generated Gold column created_date.
+  - name: modified_date
+    description: Generated Gold column modified_date.
+# Astra Gold change: ADDITION VW_EMPLOYEEASSIGNMENTREPORT against referenced branch.
+# Rationale: The current Gold design produces a model absent from the referenced branch.
+# Evidence: Silver model FACT_EMPLOYEEASSIGNMENTREPORT
+# Details: metadata/astra_gold_column_change_rationale.md
+- name: VW_EMPLOYEEASSIGNMENTREPORT
+  description: Gold report view for EmployeeAssignmentReport; exposes the report YAML
+    fields from the governed Gold fact FACT_EMPLOYEEASSIGNMENTREPORT.
+  config:
+    materialized: view
+    database: '{{ env_var(''DBT_SNOWFLAKE_GOLD_DATABASE'', env_var(''DBT_SNOWFLAKE_SILVER_DATABASE''))
+      }}'
+    schema: '{{ env_var(''DBT_SNOWFLAKE_GOLD_SCHEMA'', env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA''))
+      }}'
+    tags:
+    - gold
+    - approved
+    - report
+  meta:
+    astra_generation_status: APPROVED
+    astra_confidence_score: 1.0
+    astra_confidence_reason: The approved report grain and field mappings are backed
+      by the governed Silver design.
+    astra_load_strategy: VIEW
+    astra_history_strategy: NONE
+    astra_business_grain:
+    - ENO
+  columns:
+  - name: ENO
+    description: Generated Gold column ENO.
+    tests:
+    - not_null
+    - unique
+  - name: ENAME
+    description: Generated Gold column ENAME.
+  - name: EMAIL
+    description: Generated Gold column EMAIL.
+  - name: JOINDATE
+    description: Generated Gold column JOINDATE.
+  - name: DEPARTMENT_ID
+    description: Generated Gold column DEPARTMENT_ID.
+  - name: LOCATION
+    description: Generated Gold column LOCATION.
