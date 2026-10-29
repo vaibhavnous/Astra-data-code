@@ -1,0 +1,12 @@
+astra_yaml_silver:
+  target: compile
+  outputs:
+    compile:
+      type: snowflake
+      account: "not needed in Snowflake workspace"
+      user: "not needed in Snowflake workspace"
+      role: "{{ env_var('DBT_SNOWFLAKE_ROLE') }}"
+      database: "{{ env_var('DBT_SNOWFLAKE_PROJECT_DATABASE') }}"
+      warehouse: "{{ env_var('DBT_SNOWFLAKE_WAREHOUSE') }}"
+      schema: "{{ env_var('DBT_SNOWFLAKE_PROJECT_SCHEMA') }}"
+      threads: 1
