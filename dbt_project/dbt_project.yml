@@ -1,0 +1,25 @@
+name: astra_yaml_silver
+version: 1.0.0
+config-version: 2
+profile: astra_yaml_silver
+flags:
+  enable_iceberg_materializations: true
+model-paths:
+- models
+macro-paths:
+- macros
+clean-targets:
+- target
+- dbt_packages
+models:
+  astra_yaml_silver:
+    +database: '{{ env_var(''DBT_SNOWFLAKE_SILVER_DATABASE'') }}'
+    +schema: '{{ env_var(''DBT_SNOWFLAKE_SILVER_SCHEMA'') }}'
+    +on_schema_change: fail
+    +persist_docs:
+      relation: true
+      columns: true
+    raw_vault:
+      +persist_docs:
+        relation: false
+        columns: false

@@ -1,0 +1,110 @@
+{
+  "contract_version": "yaml_phase_2_test_manifest_v1",
+  "tests": [
+    {
+      "checks": [
+        "not_null_parent_hashkey",
+        "unique_parent_load_timestamp",
+        "satellite_parent_referential_integrity"
+      ],
+      "entity_type": "SATELLITE",
+      "model": "SAT_ADDRESS"
+    },
+    {
+      "checks": [
+        "not_null_hashkey",
+        "unique_hashkey"
+      ],
+      "entity_type": "HUB",
+      "model": "HUB_DEPARTMENT"
+    },
+    {
+      "checks": [
+        "not_null_parent_hashkey",
+        "unique_parent_load_timestamp",
+        "satellite_parent_referential_integrity"
+      ],
+      "entity_type": "SATELLITE",
+      "model": "SAT_DEPARTMENT"
+    },
+    {
+      "checks": [
+        "not_null_hashkey",
+        "unique_hashkey"
+      ],
+      "entity_type": "HUB",
+      "model": "HUB_EMPLOYEE"
+    },
+    {
+      "checks": [
+        "not_null_parent_hashkey",
+        "unique_parent_load_timestamp",
+        "satellite_parent_referential_integrity"
+      ],
+      "entity_type": "SATELLITE",
+      "model": "SAT_EMPLOYEE"
+    },
+    {
+      "checks": [
+        "not_null_hashkey",
+        "unique_hashkey"
+      ],
+      "entity_type": "HUB",
+      "model": "HUB_PROJECT"
+    },
+    {
+      "checks": [
+        "not_null_parent_hashkey",
+        "unique_parent_load_timestamp",
+        "satellite_parent_referential_integrity"
+      ],
+      "entity_type": "SATELLITE",
+      "model": "SAT_PROJECT"
+    },
+    {
+      "checks": [
+        "not_null_parent_hashkey",
+        "unique_parent_load_timestamp",
+        "satellite_parent_referential_integrity"
+      ],
+      "entity_type": "SATELLITE",
+      "model": "SAT_SALARY"
+    },
+    {
+      "checks": [
+        "not_null_hashkey",
+        "unique_hashkey",
+        "link_to_hubs_referential_integrity"
+      ],
+      "entity_type": "LINK",
+      "model": "LINK_EMPLOYEE_DEPARTMENT"
+    },
+    {
+      "checks": [
+        "not_null_parent_hashkey",
+        "unique_parent_load_timestamp",
+        "satellite_parent_referential_integrity"
+      ],
+      "entity_type": "SATELLITE",
+      "model": "SAT_LINK_EMPLOYEE_DEPARTMENT"
+    },
+    {
+      "checks": [
+        "not_null_hashkey",
+        "unique_hashkey",
+        "link_to_hubs_referential_integrity"
+      ],
+      "entity_type": "LINK",
+      "model": "LINK_EMPLOYEE_PROJECT"
+    },
+    {
+      "checks": [
+        "not_null_parent_hashkey",
+        "unique_parent_load_timestamp",
+        "satellite_parent_referential_integrity"
+      ],
+      "entity_type": "SATELLITE",
+      "model": "SAT_LINK_EMPLOYEE_PROJECT"
+    }
+  ]
+}

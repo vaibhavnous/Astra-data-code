@@ -1,0 +1,124 @@
+version: 2
+models:
+- name: SAT_LINK_EMPLOYEE_DEPARTMENT
+  description: Stores link employee department-related descriptive information for each relationship linked
+    to LINK_EMPLOYEE_DEPARTMENT. Source data comes from BRONZE.DEPARTMENT; one historical payload version
+    is retained for every LINK_HK, HASHDIFF, and LDTS.
+  config:
+    materialized: incremental
+    alias: SAT_LINK_EMPLOYEE_DEPARTMENT
+    unique_key:
+    - LINK_HK
+    - LDTS
+    incremental_strategy: append
+    on_schema_change: fail
+    table_format: iceberg
+    catalog: SNOWFLAKE
+    external_volume: SNOWFLAKE_MANAGED
+    tags:
+    - yaml_phase_2
+    - data_vault_satellite
+    contract:
+      enforced: true
+  columns:
+  - name: LINK_HK
+    description: Deterministic SHA-256 Link hash key derived from the connected Hub hash keys; identifies
+      one governed relationship instance.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+    - relationships:
+        to: '{{ ref(''LINK_EMPLOYEE_DEPARTMENT'') }}'
+        field: LINK_HK
+  - name: HASHDIFF
+    description: Deterministic SHA-256 hash of the Satellite payload columns; used to detect descriptive
+      changes for the same governed Hub or Link parent.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+  - name: MANAGER_NAME
+    description: Name of the employee's department manager.
+    data_type: VARCHAR(134217728)
+    quote: false
+  - name: LDTS
+    description: Technical load timestamp for the Bronze record, used to order incremental loads and preserve
+      Data Vault history.
+    data_type: TIMESTAMP_NTZ
+    quote: false
+    data_tests:
+    - not_null
+  - name: RSRC
+    description: Record-source identifier naming the approved Bronze relation from which the Data Vault
+      row was derived.
+    data_type: VARCHAR
+    quote: false
+  data_tests:
+  - astra_unique_combination_of_columns:
+      combination_of_columns:
+      - LINK_HK
+      - LDTS
+- name: SAT_LINK_EMPLOYEE_PROJECT
+  description: Stores link employee project-related descriptive information for each relationship linked
+    to LINK_EMPLOYEE_PROJECT. Source data comes from BRONZE.EMPLOYEE_PROJECT; one historical payload version
+    is retained for every LINK_HK, HASHDIFF, and LDTS.
+  config:
+    materialized: incremental
+    alias: SAT_LINK_EMPLOYEE_PROJECT
+    unique_key:
+    - LINK_HK
+    - LDTS
+    incremental_strategy: append
+    on_schema_change: fail
+    table_format: iceberg
+    catalog: SNOWFLAKE
+    external_volume: SNOWFLAKE_MANAGED
+    tags:
+    - yaml_phase_2
+    - data_vault_satellite
+    contract:
+      enforced: true
+  columns:
+  - name: LINK_HK
+    description: Deterministic SHA-256 Link hash key derived from the connected Hub hash keys; identifies
+      one governed relationship instance.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+    - relationships:
+        to: '{{ ref(''LINK_EMPLOYEE_PROJECT'') }}'
+        field: LINK_HK
+  - name: HASHDIFF
+    description: Deterministic SHA-256 hash of the Satellite payload columns; used to detect descriptive
+      changes for the same governed Hub or Link parent.
+    data_type: VARCHAR
+    quote: false
+    data_tests:
+    - not_null
+  - name: PROJECT_ROLE
+    description: Role performed by the employee on the project.
+    data_type: VARCHAR(134217728)
+    quote: false
+  - name: START_DATE
+    description: Date on which the employee started the project.
+    data_type: DATE
+    quote: false
+  - name: LDTS
+    description: Technical load timestamp for the Bronze record, used to order incremental loads and preserve
+      Data Vault history.
+    data_type: TIMESTAMP_NTZ
+    quote: false
+    data_tests:
+    - not_null
+  - name: RSRC
+    description: Record-source identifier naming the approved Bronze relation from which the Data Vault
+      row was derived.
+    data_type: VARCHAR
+    quote: false
+  data_tests:
+  - astra_unique_combination_of_columns:
+      combination_of_columns:
+      - LINK_HK
+      - LDTS

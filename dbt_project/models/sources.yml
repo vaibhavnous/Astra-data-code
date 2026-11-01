@@ -1,0 +1,115 @@
+version: 2
+sources:
+- name: bronze_bronze
+  database: '{{ env_var(''DBT_SNOWFLAKE_BRONZE_DATABASE'') }}'
+  schema: '{{ env_var(''DBT_SNOWFLAKE_BRONZE_SCHEMA'') }}'
+  quoting:
+    identifier: true
+  tables:
+  - name: ADDRESS
+    identifier: ADDRESS
+    description: Read-only Bronze source BRONZE.ADDRESS; declared in Input-source 3-v1/source 2/source
+      2/sample data/address.yaml.
+    columns:
+    - name: ENO
+      description: Employee number used to link the address to an employee.
+      data_type: NUMBER(38,0)
+      data_tests:
+      - not_null
+    - name: ADDRESS_LINE
+      description: Street and building information of the employee.
+      data_type: VARCHAR(200)
+    - name: CITY
+      description: City where the employee resides.
+      data_type: VARCHAR(80)
+    - name: STATE_PROVINCE
+      description: State or province where the employee resides.
+      data_type: VARCHAR(80)
+    - name: COUNTRY
+      description: Country where the employee resides.
+      data_type: VARCHAR(80)
+  - name: DEPARTMENT
+    identifier: DEPARTMENT
+    description: Read-only Bronze source BRONZE.DEPARTMENT; declared in Input-source 3-v1/source 2/source
+      2/sample data/department.yaml.
+    columns:
+    - name: ENO
+      description: Employee number used to link the department to an employee.
+      data_type: NUMBER(38,0)
+    - name: DEPARTMENT_ID
+      description: Business identifier of the department.
+      data_type: NUMBER(38,0)
+      data_tests:
+      - not_null
+    - name: DEPARTMENT_NAME
+      description: Name of the department assigned to the employee.
+      data_type: VARCHAR(100)
+    - name: MANAGER_NAME
+      description: Name of the employee's department manager.
+      data_type: VARCHAR(100)
+    - name: LOCATION
+      description: Business location of the department.
+      data_type: VARCHAR(100)
+  - name: EMPLOYEE
+    identifier: EMPLOYEE
+    description: Read-only Bronze source BRONZE.EMPLOYEE; declared in Input-source 3-v1/source 2/source
+      2/sample data/employee.yaml.
+    columns:
+    - name: ENO
+      description: Unique employee number.
+      data_type: NUMBER(38,0)
+      data_tests:
+      - not_null
+    - name: ENAME
+      description: Full name of the employee.
+      data_type: VARCHAR(80)
+    - name: EMAIL
+      description: Official email address of the employee.
+      data_type: VARCHAR(100)
+    - name: JOINDATE
+      description: Date on which the employee joined the organization.
+      data_type: DATE
+  - name: EMPLOYEE_PROJECT
+    identifier: EMPLOYEE_PROJECT
+    description: Read-only Bronze source BRONZE.EMPLOYEE_PROJECT; declared in Input-source 3-v1/source
+      2/source 2/sample data/employee_project.yaml.
+    columns:
+    - name: ENO
+      description: Employee number used to link the project to an employee.
+      data_type: NUMBER(38,0)
+    - name: PROJECT_ID
+      description: Business identifier assigned to the project.
+      data_type: NUMBER(38,0)
+      data_tests:
+      - not_null
+    - name: PROJECT_NAME
+      description: Name of the project assigned to the employee.
+      data_type: VARCHAR(120)
+    - name: PROJECT_ROLE
+      description: Role performed by the employee on the project.
+      data_type: VARCHAR(80)
+    - name: START_DATE
+      description: Date on which the employee started the project.
+      data_type: DATE
+  - name: SALARY
+    identifier: SALARY
+    description: Read-only Bronze source BRONZE.SALARY; declared in Input-source 3-v1/source 2/source
+      2/sample data/salary.yaml.
+    columns:
+    - name: ENO
+      description: Employee number used to link salary to an employee.
+      data_type: NUMBER(38,0)
+      data_tests:
+      - not_null
+    - name: BASIC_SALARY
+      description: Basic salary amount of the employee.
+      data_type: NUMBER(18,2)
+    - name: BONUS
+      description: Bonus amount assigned to the employee.
+      data_type: NUMBER(18,2)
+    - name: CURRENCY
+      description: Currency code used for salary payment.
+      data_type: VARCHAR(3)
+    - name: EFFECTIVE_DATE
+      description: Date from which the salary information is effective.
+      data_type: DATE
